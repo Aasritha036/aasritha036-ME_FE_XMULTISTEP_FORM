@@ -163,14 +163,17 @@ function validatePersonalInfo() {
 // =========================
 
 document.addEventListener("click", (event) => {
+
   const button = event.target.closest("#next-button");
 
   if (!button) {
     return;
   }
 
+
   // STEP 1 → STEP 2
   if (currentStep === 1) {
+
     if (validatePersonalInfo()) {
       showStep(2);
     }
@@ -178,29 +181,59 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+
   // STEP 2 → STEP 3
   if (currentStep === 2) {
-    const planError = document.getElementById("plan-error");
 
     if (!selectedPlan) {
-      planError.textContent = "Please select a plan";
+
+      document.getElementById("plan-error").textContent =
+        "Please select a plan";
+
       return;
     }
 
-    planError.textContent = "";
+    document.getElementById("plan-error").textContent = "";
 
     showStep(3);
 
     return;
   }
 
+
   // STEP 3 → STEP 4
   if (currentStep === 3) {
+
     updateSummary();
+
     showStep(4);
 
     return;
   }
+
+
+  // STEP 4 → THANK YOU
+  if (currentStep === 4) {
+
+    document
+      .querySelectorAll(".form-step")
+      .forEach((step) => {
+        step.classList.remove("active");
+      });
+
+    document
+      .getElementById("thank-you")
+      .classList.add("active");
+
+    document
+      .querySelectorAll(".step")
+      .forEach((step) => {
+        step.classList.remove("active");
+      });
+
+    return;
+  }
+
 });
 
 // =========================
@@ -359,26 +392,6 @@ document
 // CONFIRM
 // =========================
 
-document
-  .getElementById("confirm-button")
-  .addEventListener("click", () => {
-    document.querySelectorAll(".form-step").forEach((step) => {
-      step.classList.remove("active");
-    });
-
-    document
-      .getElementById("thank-you")
-      .classList.add("active");
-
-    document.querySelectorAll(".step").forEach((step) => {
-      step.classList.remove("active");
-    });
-
-    // No next button should remain active after confirmation.
-    document.querySelectorAll(".next-button").forEach((button) => {
-      button.removeAttribute("id");
-    });
-  });
 
 // =========================
 // BACK BUTTONS
