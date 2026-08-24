@@ -1,13 +1,9 @@
 let currentStep = 1;
-
 let maxStepReached = 1;
 
 let selectedPlan = null;
-
 let billingType = "Monthly";
-
 let selectedAddons = [];
-
 
 // =========================
 // PLAN DATA
@@ -18,18 +14,15 @@ const plans = {
     Monthly: 9,
     Yearly: 90
   },
-
   Advanced: {
     Monthly: 12,
     Yearly: 120
   },
-
   Pro: {
     Monthly: 15,
     Yearly: 150
   }
 };
-
 
 // =========================
 // ADD-ON DATA
@@ -40,217 +33,144 @@ const addons = {
     Monthly: 1,
     Yearly: 10
   },
-
   "Larger storage": {
     Monthly: 2,
     Yearly: 20
   },
-
   "Customizable Profile": {
     Monthly: 2,
     Yearly: 20
   }
 };
 
-
 // =========================
 // STEP CONTROL
 // =========================
 
 function showStep(step) {
-
-  // Hide all steps
+  // Hide every form step
   document.querySelectorAll(".form-step").forEach((element) => {
     element.classList.remove("active");
   });
 
-
-  // Show selected step
+  // Show requested step
   const target = document.getElementById(`step-${step}`);
 
-  if (target) {
-    target.classList.add("active");
+  if (!target) {
+    return;
   }
 
+  target.classList.add("active");
 
-  // Remove next-button ID from all Next buttons
+  // Keep #next-button available on the currently visible step.
+  // This maintains compatibility with the Cypress tests.
   document.querySelectorAll(".next-button").forEach((button) => {
     button.removeAttribute("id");
   });
 
+  const nextButton = target.querySelector(".next-button");
 
-  // Give #next-button only to current step's Next button
-  if (target) {
-
-    const nextButton =
-      target.querySelector(".next-button");
-
-    if (nextButton) {
-      nextButton.id = "next-button";
-    }
-
+  if (nextButton) {
+    nextButton.id = "next-button";
   }
 
-
-  // Update sidebar active state
+  // Update sidebar
   document.querySelectorAll(".step").forEach((element, index) => {
-
-    element.classList.remove("active");
-
-    if (index === step - 1) {
-      element.classList.add("active");
-    }
-
+    element.classList.toggle("active", index === step - 1);
   });
-
 
   currentStep = step;
 
-
-  // Remember the furthest valid step reached
   if (step > maxStepReached) {
     maxStepReached = step;
   }
-
 }
-
 
 // =========================
 // SIDEBAR NAVIGATION
 // =========================
 
 document.querySelectorAll(".step").forEach((stepElement, index) => {
-
   stepElement.addEventListener("click", () => {
-
     const clickedStep = index + 1;
 
-
-    // Allow navigation only to already reached steps
     if (clickedStep <= maxStepReached) {
       showStep(clickedStep);
     }
-
   });
-
 });
-
 
 // =========================
 // STEP 1 VALIDATION
 // =========================
 
 function validatePersonalInfo() {
+  const name = document.querySelector('input[name="userName"]');
+  const email = document.querySelector('input[name="email"]');
+  const phone = document.querySelector('input[name="phone"]');
 
-  const name =
-    document.querySelector('input[name="userName"]');
-
-  const email =
-    document.querySelector('input[name="email"]');
-
-  const phone =
-    document.querySelector('input[name="phone"]');
-
-
-  const nameError =
-    document.getElementById("name-error");
-
-  const emailError =
-    document.getElementById("email-error");
-
-  const phoneError =
-    document.getElementById("phone-error");
-
+  const nameError = document.getElementById("name-error");
+  const emailError = document.getElementById("email-error");
+  const phoneError = document.getElementById("phone-error");
 
   let valid = true;
 
-
-  // Clear previous errors
+  // Clear errors
   nameError.textContent = "";
   emailError.textContent = "";
   phoneError.textContent = "";
-
 
   name.classList.remove("error-input");
   email.classList.remove("error-input");
   phone.classList.remove("error-input");
 
-
-  // Name validation
+  // Name
   if (name.value.trim() === "") {
-
-    nameError.textContent =
-      "This field is required";
-
+    nameError.textContent = "This field is required";
     name.classList.add("error-input");
-
     valid = false;
   }
 
-
-  // Email validation
+  // Email
   if (email.value.trim() === "") {
-
-    emailError.textContent =
-      "This field is required";
-
+    emailError.textContent = "This field is required";
     email.classList.add("error-input");
-
     valid = false;
-
   } else {
-
-    const emailPattern =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    // IMPORTANT:
+    // Use \. rather than \\.
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(email.value.trim())) {
-
-      emailError.textContent =
-        "Please enter a valid email address";
-
+      emailError.textContent = "Please enter a valid email address";
       email.classList.add("error-input");
-
       valid = false;
     }
-
   }
 
-
-  // Phone validation
+  // Phone
   if (phone.value.trim() === "") {
-
-    phoneError.textContent =
-      "This field is required";
-
+    phoneError.textContent = "This field is required";
     phone.classList.add("error-input");
-
     valid = false;
   }
-
 
   return valid;
 }
-
 
 // =========================
 // NEXT BUTTON
 // =========================
 
 document.addEventListener("click", (event) => {
-
-  const button =
-    event.target.closest("#next-button");
-
+  const button = event.target.closest("#next-button");
 
   if (!button) {
     return;
   }
 
-
   // STEP 1 → STEP 2
   if (currentStep === 1) {
-
     if (validatePersonalInfo()) {
       showStep(2);
     }
@@ -258,302 +178,170 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-
   // STEP 2 → STEP 3
   if (currentStep === 2) {
+    const planError = document.getElementById("plan-error");
 
     if (!selectedPlan) {
-
-      document.getElementById("plan-error").textContent =
-        "Please select a plan";
-
+      planError.textContent = "Please select a plan";
       return;
     }
 
-
-    document.getElementById("plan-error").textContent =
-      "";
-
+    planError.textContent = "";
 
     showStep(3);
 
     return;
   }
 
-
   // STEP 3 → STEP 4
   if (currentStep === 3) {
-
     updateSummary();
-
     showStep(4);
 
     return;
   }
-
 });
-
 
 // =========================
 // PLAN SELECTION
 // =========================
 
-document
-  .querySelectorAll(".plan_card")
-  .forEach((card) => {
-
-    card.addEventListener("click", () => {
-
-
-      // Remove selection from all plans
-      document
-        .querySelectorAll(".plan_card")
-        .forEach((item) => {
-
-          item.classList.remove("selected");
-
-        });
-
-
-      // Select clicked plan
-      card.classList.add("selected");
-
-
-      // Store selected plan
-      selectedPlan = card.dataset.plan;
-
-
-      // Clear validation error
-      document.getElementById("plan-error").textContent =
-        "";
-
+document.querySelectorAll(".plan_card").forEach((card) => {
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".plan_card").forEach((item) => {
+      item.classList.remove("selected");
     });
 
-  });
+    card.classList.add("selected");
 
+    selectedPlan = card.dataset.plan;
+
+    document.getElementById("plan-error").textContent = "";
+  });
+});
 
 // =========================
 // BILLING TOGGLE
 // =========================
 
-const billingToggle =
-  document.getElementById("billing-toggle");
-
+const billingToggle = document.getElementById("billing-toggle");
 
 billingToggle.addEventListener("change", () => {
+  billingType = billingToggle.checked ? "Yearly" : "Monthly";
 
+  document.querySelector(".monthly").classList.toggle(
+    "active",
+    billingType === "Monthly"
+  );
 
-  // Set billing type
-  billingType =
-    billingToggle.checked
-      ? "Yearly"
-      : "Monthly";
+  document.querySelector(".yearly").classList.toggle(
+    "active",
+    billingType === "Yearly"
+  );
 
+  document.querySelectorAll(".monthly-price").forEach((element) => {
+    element.style.display =
+      billingType === "Monthly" ? "block" : "none";
+  });
 
-  // Update Monthly / Yearly active state
-  document
-    .querySelector(".monthly")
-    .classList.toggle(
-      "active",
-      billingType === "Monthly"
-    );
+  document.querySelectorAll(".yearly-price").forEach((element) => {
+    element.style.display =
+      billingType === "Yearly" ? "block" : "none";
+  });
 
-
-  document
-    .querySelector(".yearly")
-    .classList.toggle(
-      "active",
-      billingType === "Yearly"
-    );
-
-
-  // Monthly prices
-  document
-    .querySelectorAll(".monthly-price")
-    .forEach((element) => {
-
-      element.style.display =
-        billingType === "Monthly"
-          ? "block"
-          : "none";
-
-    });
-
-
-  // Yearly prices
-  document
-    .querySelectorAll(".yearly-price")
-    .forEach((element) => {
-
-      element.style.display =
-        billingType === "Yearly"
-          ? "block"
-          : "none";
-
-    });
-
-
-  // Yearly benefits
-  document
-    .querySelectorAll(".yearly-benefit")
-    .forEach((element) => {
-
-      element.style.display =
-        billingType === "Yearly"
-          ? "block"
-          : "none";
-
-    });
-
+  document.querySelectorAll(".yearly-benefit").forEach((element) => {
+    element.style.display =
+      billingType === "Yearly" ? "block" : "none";
+  });
 });
-
 
 // =========================
 // ADD-ONS
 // =========================
 
-document
-  .querySelectorAll(".addon_card")
-  .forEach((card) => {
+document.querySelectorAll(".addon_card").forEach((card) => {
+  const checkbox = card.querySelector("input");
 
+  card.addEventListener("click", (event) => {
+    // If the card itself was clicked, toggle the checkbox.
+    // If the checkbox was clicked, the browser already toggled it.
+    if (event.target !== checkbox) {
+      checkbox.checked = !checkbox.checked;
+    }
 
-    const checkbox =
-      card.querySelector("input");
+    const addonName = card.dataset.addon;
 
+    if (checkbox.checked) {
+      card.classList.add("selected");
 
-    card.addEventListener("click", (event) => {
-
-
-      // If user clicks anywhere except checkbox,
-      // toggle checkbox manually
-      if (event.target !== checkbox) {
-        checkbox.checked =
-          !checkbox.checked;
+      if (!selectedAddons.includes(addonName)) {
+        selectedAddons.push(addonName);
       }
+    } else {
+      card.classList.remove("selected");
 
-
-      const addonName =
-        card.dataset.addon;
-
-
-      // Add addon
-      if (checkbox.checked) {
-
-        card.classList.add("selected");
-
-
-        if (!selectedAddons.includes(addonName)) {
-
-          selectedAddons.push(addonName);
-
-        }
-
-      }
-
-      // Remove addon
-      else {
-
-        card.classList.remove("selected");
-
-
-        selectedAddons =
-          selectedAddons.filter(
-            (item) => item !== addonName
-          );
-
-      }
-
-    });
-
+      selectedAddons = selectedAddons.filter(
+        (item) => item !== addonName
+      );
+    }
   });
-
+});
 
 // =========================
 // UPDATE SUMMARY
 // =========================
 
 function updateSummary() {
+  if (!selectedPlan) {
+    return;
+  }
 
+  const planPrice = plans[selectedPlan][billingType];
 
-  // Get selected plan price
-  const planPrice =
-    plans[selectedPlan][billingType];
-
-
-  // Plan name
-  document.getElementById(
-    "summary-plan-name"
-  ).textContent =
+  document.getElementById("summary-plan-name").textContent =
     `${selectedPlan} (${billingType})`;
 
-
-  // Plan price
-  document.getElementById(
-    "summary-plan-price"
-  ).textContent =
+  document.getElementById("summary-plan-price").textContent =
     billingType === "Monthly"
       ? `$${planPrice}/mo`
       : `$${planPrice}/yr`;
 
-
-  // Summary addons container
   const summaryAddons =
     document.getElementById("summary-addons");
 
-
   summaryAddons.innerHTML = "";
 
-
-  // Start total with plan price
   let total = planPrice;
 
-
-  // Add selected addons
   selectedAddons.forEach((addon) => {
-
-
-    const price =
-      addons[addon][billingType];
-
+    const price = addons[addon][billingType];
 
     total += price;
 
-
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "summary-addon";
-
+    const div = document.createElement("div");
+    div.className = "summary-addon";
 
     const duration =
-      billingType === "Monthly"
-        ? "/mo"
-        : "/yr";
+      billingType === "Monthly" ? "/mo" : "/yr";
 
+    const addonName = document.createElement("span");
+    addonName.textContent = addon;
 
-    div.innerHTML = `
-      <span>${addon}</span>
-      <span>+$${price}${duration}</span>
-    `;
+    const addonPrice = document.createElement("span");
+    addonPrice.textContent = `+$${price}${duration}`;
 
+    div.appendChild(addonName);
+    div.appendChild(addonPrice);
 
     summaryAddons.appendChild(div);
-
   });
 
-
-  // Total price
-  document.getElementById(
-    "total-price"
-  ).textContent =
+  document.getElementById("total-price").textContent =
     billingType === "Monthly"
       ? `$${total}/mo`
       : `$${total}/yr`;
-
 }
-
 
 // =========================
 // CHANGE PLAN
@@ -562,13 +350,10 @@ function updateSummary() {
 document
   .getElementById("change-plan")
   .addEventListener("click", (event) => {
-
     event.preventDefault();
 
     showStep(2);
-
   });
-
 
 // =========================
 // CONFIRM
@@ -577,35 +362,23 @@ document
 document
   .getElementById("confirm-button")
   .addEventListener("click", () => {
+    document.querySelectorAll(".form-step").forEach((step) => {
+      step.classList.remove("active");
+    });
 
-
-    // Hide all form steps
-    document
-      .querySelectorAll(".form-step")
-      .forEach((step) => {
-
-        step.classList.remove("active");
-
-      });
-
-
-    // Show Thank You
     document
       .getElementById("thank-you")
       .classList.add("active");
 
+    document.querySelectorAll(".step").forEach((step) => {
+      step.classList.remove("active");
+    });
 
-    // Remove sidebar active state
-    document
-      .querySelectorAll(".step")
-      .forEach((step) => {
-
-        step.classList.remove("active");
-
-      });
-
+    // No next button should remain active after confirmation.
+    document.querySelectorAll(".next-button").forEach((button) => {
+      button.removeAttribute("id");
+    });
   });
-
 
 // =========================
 // BACK BUTTONS
@@ -615,31 +388,22 @@ document
 document
   .getElementById("back-button")
   .addEventListener("click", () => {
-
     showStep(1);
-
   });
-
 
 // Step 3 → Step 2
 document
   .getElementById("addon-back")
   .addEventListener("click", () => {
-
     showStep(2);
-
   });
-
 
 // Step 4 → Step 3
 document
   .getElementById("summary-back")
   .addEventListener("click", () => {
-
     showStep(3);
-
   });
-
 
 // =========================
 // INITIAL STEP
