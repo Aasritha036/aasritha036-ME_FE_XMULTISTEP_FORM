@@ -2,6 +2,8 @@ let currentStep = 1;
 
 let selectedPlan = null;
 
+let maxStepReached = 1;
+
 let billingType = "Monthly";
 
 let selectedAddons = [];
@@ -79,8 +81,26 @@ function showStep(step) {
     });
   
     currentStep = step;
+
+    if (step > maxStepReached) {
+        maxStepReached = step;
+    }
   }
 
+
+  document.querySelectorAll(".step").forEach((stepElement, index) => {
+
+    stepElement.addEventListener("click", () => {
+  
+      const clickedStep = index + 1;
+  
+      if (clickedStep <= maxStepReached) {
+        showStep(clickedStep);
+      }
+  
+    });
+  
+  });
 
 /* =========================
    STEP 1 VALIDATION
