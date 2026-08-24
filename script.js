@@ -46,29 +46,40 @@ const addons = {
 ========================= */
 
 function showStep(step) {
-
-  document.querySelectorAll(".form-step").forEach((element) => {
-    element.classList.remove("active");
-  });
-
-  const target = document.getElementById(`step-${step}`);
-
-  if (target) {
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".step").forEach((element, index) => {
-
-    element.classList.remove("active");
-
-    if (index === step - 1) {
-      element.classList.add("active");
+    document.querySelectorAll(".form-step").forEach((element) => {
+      element.classList.remove("active");
+    });
+  
+    const target = document.getElementById(`step-${step}`);
+  
+    if (target) {
+      target.classList.add("active");
     }
-
-  });
-
-  currentStep = step;
-}
+  
+    // Remove id from all next buttons
+    document.querySelectorAll(".next-button").forEach((button) => {
+      button.removeAttribute("id");
+    });
+  
+    // Give #next-button only to the visible step's Next button
+    if (target) {
+      const nextButton = target.querySelector(".next-button");
+  
+      if (nextButton) {
+        nextButton.id = "next-button";
+      }
+    }
+  
+    document.querySelectorAll(".step").forEach((element, index) => {
+      element.classList.remove("active");
+  
+      if (index === step - 1) {
+        element.classList.add("active");
+      }
+    });
+  
+    currentStep = step;
+  }
 
 
 /* =========================
@@ -160,16 +171,30 @@ function validatePersonalInfo() {
    NEXT STEP
 ========================= */
 
-document
-  .getElementById("next-button")
-  .addEventListener("click", () => {
-
-    if (validatePersonalInfo()) {
-
-      showStep(2);
-
+document.addEventListener("click", (event) => {
+    if (event.target.id !== "next-button") return;
+  
+    if (currentStep === 1) {
+      if (validatePersonalInfo()) {
+        showStep(2);
+      }
     }
-
+  
+    else if (currentStep === 2) {
+      if (!selectedPlan) {
+        document.getElementById("plan-error").textContent =
+          "Please select a plan";
+        return;
+      }
+  
+      document.getElementById("plan-error").textContent = "";
+      showStep(3);
+    }
+  
+    else if (currentStep === 3) {
+      updateSummary();
+      showStep(4);
+    }
   });
 
 
@@ -268,7 +293,7 @@ billingToggle.addEventListener("change", () => {
 
 /* =========================
    PLAN NEXT
-========================= */
+========================= 
 
 document
   .getElementById("plan-next")
@@ -285,7 +310,7 @@ document
     showStep(3);
 
   });
-
+*/
 
 /* =========================
    ADDONS
@@ -334,7 +359,7 @@ document
 
 /* =========================
    ADDON NEXT
-========================= */
+========================= 
 
 document
   .getElementById("addon-next")
@@ -345,7 +370,7 @@ document
     showStep(4);
 
   });
-
+*/
 
 /* =========================
    SUMMARY
@@ -494,3 +519,5 @@ document
     showStep(3);
 
   });
+
+  showStep(1);
