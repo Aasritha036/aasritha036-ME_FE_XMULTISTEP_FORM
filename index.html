@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,63 +14,103 @@
 
     <div class="container">
 
-      <!-- SIDEBAR -->
+      <!-- =========================
+           SIDEBAR
+      ========================== -->
+
       <aside class="sidebar">
 
         <div class="step active">
-          <div class="step-number">1</div>
+
+          <div class="step-number">
+            1
+          </div>
 
           <div class="step-info">
             <span>Step 1</span>
             <strong>Your Info</strong>
           </div>
+
         </div>
 
+
         <div class="step">
-          <div class="step-number">2</div>
+
+          <div class="step-number">
+            2
+          </div>
 
           <div class="step-info">
             <span>Step 2</span>
             <strong>Select Plan</strong>
           </div>
+
         </div>
 
+
         <div class="step">
-          <div class="step-number">3</div>
+
+          <div class="step-number">
+            3
+          </div>
 
           <div class="step-info">
             <span>Step 3</span>
             <strong>Add-ons</strong>
           </div>
+
         </div>
 
+
         <div class="step">
-          <div class="step-number">4</div>
+
+          <div class="step-number">
+            4
+          </div>
 
           <div class="step-info">
             <span>Step 4</span>
             <strong>Summary</strong>
           </div>
+
         </div>
 
       </aside>
 
 
-      <!-- FORM AREA -->
+      <!-- =========================
+           FORM CONTAINER
+      ========================== -->
+
       <section class="form-container">
 
-        <!-- STEP 1 -->
+
+        <!-- =========================
+             STEP 1
+        ========================== -->
+
         <div class="form-step active" id="step-1">
 
           <div class="form-header">
+
             <h1>Personal Info</h1>
-            <p>Please provide your name, email address, and phone number.</p>
+
+            <p>
+              Please provide your name, email address, and phone number.
+            </p>
+
           </div>
+
 
           <form id="personal-form">
 
+            <!-- Name -->
+
             <div class="form-group">
-              <label for="userName">Name</label>
+
+              <label for="userName">
+                Name
+              </label>
 
               <input
                 type="text"
@@ -78,12 +119,21 @@
                 placeholder="e.g. Stephen King"
               >
 
-              <span class="error" id="name-error"></span>
+              <span
+                class="error"
+                id="name-error">
+              </span>
+
             </div>
 
 
+            <!-- Email -->
+
             <div class="form-group">
-              <label for="email">Email Address</label>
+
+              <label for="email">
+                Email Address
+              </label>
 
               <input
                 type="email"
@@ -92,12 +142,21 @@
                 placeholder="e.g. stephenking@lorem.com"
               >
 
-              <span class="error" id="email-error"></span>
+              <span
+                class="error"
+                id="email-error">
+              </span>
+
             </div>
 
 
+            <!-- Phone -->
+
             <div class="form-group">
-              <label for="phone">Phone Number</label>
+
+              <label for="phone">
+                Phone Number
+              </label>
 
               <input
                 type="tel"
@@ -106,74 +165,188 @@
                 placeholder="e.g. 7894561230"
               >
 
-              <span class="error" id="phone-error"></span>
+              <span
+                class="error"
+                id="phone-error">
+              </span>
+
             </div>
 
           </form>
 
+
           <div class="button-container">
-            <button id="next-button" class="next-button">
+
+            <button
+              id="next-button"
+              class="next-button"
+              type="button">
+
               Next step
+
             </button>
+
           </div>
 
         </div>
 
 
-        <!-- STEP 2 -->
+        <!-- =========================
+             STEP 2
+        ========================== -->
+
         <div class="form-step" id="step-2">
 
           <div class="form-header">
+
             <h1>Select your plan</h1>
-            <p>You have the option of monthly or yearly billing.</p>
+
+            <p>
+              You have the option of monthly or yearly billing.
+            </p>
+
           </div>
 
+
+          <!-- Plans -->
 
           <div class="plans">
 
-            <div class="plan_card" data-plan="Arcade">
 
-              <div class="plan-icon">🎮</div>
+            <!-- Arcade -->
+
+            <div
+              class="plan_card"
+              data-plan="Arcade">
+
+              <div class="plan-icon">
+                🎮
+              </div>
 
               <div>
-                <h3>Arcade</h3>
-                <p class="monthly-price">$9/mo</p>
-                <p class="yearly-price">$90/yr</p>
-                <span class="yearly-benefit">2 months free</span>
+
+                <h3>
+                  Arcade
+                </h3>
+
+                <p class="monthly-price">
+                  $9/mo
+                </p>
+
+                <p
+                  class="yearly-price"
+                  style="display: none;">
+
+                  $90/yr
+
+                </p>
+
+                <span
+                  class="yearly-benefit"
+                  style="display: none;">
+
+                  2 months free
+
+                </span>
+
               </div>
 
             </div>
 
 
-            <div class="plan_card" data-plan="Advanced">
+            <!-- Advanced -->
 
-              <div class="plan-icon">🎮</div>
+            <div
+              class="plan_card"
+              data-plan="Advanced">
+
+              <div class="plan-icon">
+                🎮
+              </div>
 
               <div>
-                <h3>Advanced</h3>
-                <p class="monthly-price">$12/mo</p>
-                <p class="yearly-price">$120/yr</p>
-                <span class="yearly-benefit">2 months free</span>
+
+                <h3>
+                  Advanced
+                </h3>
+
+                <p class="monthly-price">
+                  $12/mo
+                </p>
+
+                <p
+                  class="yearly-price"
+                  style="display: none;">
+
+                  $120/yr
+
+                </p>
+
+                <span
+                  class="yearly-benefit"
+                  style="display: none;">
+
+                  2 months free
+
+                </span>
+
               </div>
 
             </div>
 
 
-            <div class="plan_card" data-plan="Pro">
+            <!-- Pro -->
 
-              <div class="plan-icon">🎮</div>
+            <div
+              class="plan_card"
+              data-plan="Pro">
+
+              <div class="plan-icon">
+                🎮
+              </div>
 
               <div>
-                <h3>Pro</h3>
-                <p class="monthly-price">$15/mo</p>
-                <p class="yearly-price">$150/yr</p>
-                <span class="yearly-benefit">2 months free</span>
+
+                <h3>
+                  Pro
+                </h3>
+
+                <p class="monthly-price">
+                  $15/mo
+                </p>
+
+                <p
+                  class="yearly-price"
+                  style="display: none;">
+
+                  $150/yr
+
+                </p>
+
+                <span
+                  class="yearly-benefit"
+                  style="display: none;">
+
+                  2 months free
+
+                </span>
+
               </div>
 
             </div>
 
           </div>
 
+
+          <!-- Plan Error -->
+
+          <span
+            class="error"
+            id="plan-error">
+          </span>
+
+
+          <!-- Billing Toggle -->
 
           <div class="billing-toggle">
 
@@ -181,10 +354,17 @@
               Monthly
             </span>
 
+
             <label class="switch">
-              <input type="checkbox" id="billing-toggle">
+
+              <input
+                type="checkbox"
+                id="billing-toggle">
+
               <span class="slider"></span>
+
             </label>
+
 
             <span class="billing-option yearly">
               Yearly
@@ -193,17 +373,27 @@
           </div>
 
 
-          <span class="error" id="plan-error"></span>
-
+          <!-- Navigation -->
 
           <div class="navigation">
 
-            <button class="back-button" id="back-button">
+            <button
+              class="back-button"
+              id="back-button"
+              type="button">
+
               Go Back
+
             </button>
 
-            <button class="next-button" id="plan-next">
+
+            <button
+              class="next-button"
+              id="plan-next"
+              type="button">
+
               Next step
+
             </button>
 
           </div>
@@ -211,24 +401,48 @@
         </div>
 
 
-        <!-- STEP 3 -->
+        <!-- =========================
+             STEP 3
+        ========================== -->
+
         <div class="form-step" id="step-3">
 
           <div class="form-header">
-            <h1>Pick add-ons</h1>
-            <p>Add-ons help enhance your gaming experience.</p>
+
+            <h1>
+              Pick add-ons
+            </h1>
+
+            <p>
+              Add-ons help enhance your gaming experience.
+            </p>
+
           </div>
 
 
           <div class="addons">
 
-            <div class="addon_card" data-addon="Online service">
 
-              <input type="checkbox">
+            <!-- Online Service -->
+
+            <div
+              class="addon_card"
+              data-addon="Online service">
+
+              <input
+                type="checkbox"
+                aria-label="Online service">
 
               <div class="addon-info">
-                <h3>Online service</h3>
-                <p>Access to multiplayer games</p>
+
+                <h3>
+                  Online service
+                </h3>
+
+                <p>
+                  Access to multiplayer games
+                </p>
+
               </div>
 
               <span class="addon-price">
@@ -238,13 +452,26 @@
             </div>
 
 
-            <div class="addon_card" data-addon="Larger storage">
+            <!-- Larger Storage -->
 
-              <input type="checkbox">
+            <div
+              class="addon_card"
+              data-addon="Larger storage">
+
+              <input
+                type="checkbox"
+                aria-label="Larger storage">
 
               <div class="addon-info">
-                <h3>Larger storage</h3>
-                <p>Extra 1TB of cloud save</p>
+
+                <h3>
+                  Larger storage
+                </h3>
+
+                <p>
+                  Extra 1TB of cloud save
+                </p>
+
               </div>
 
               <span class="addon-price">
@@ -254,13 +481,26 @@
             </div>
 
 
-            <div class="addon_card" data-addon="Customizable Profile">
+            <!-- Customizable Profile -->
 
-              <input type="checkbox">
+            <div
+              class="addon_card"
+              data-addon="Customizable Profile">
+
+              <input
+                type="checkbox"
+                aria-label="Customizable Profile">
 
               <div class="addon-info">
-                <h3>Customizable Profile</h3>
-                <p>Custom theme on your profile</p>
+
+                <h3>
+                  Customizable Profile
+                </h3>
+
+                <p>
+                  Custom theme on your profile
+                </p>
+
               </div>
 
               <span class="addon-price">
@@ -272,14 +512,27 @@
           </div>
 
 
+          <!-- Navigation -->
+
           <div class="navigation">
 
-            <button class="back-button" id="addon-back">
+            <button
+              class="back-button"
+              id="addon-back"
+              type="button">
+
               Go Back
+
             </button>
 
-            <button class="next-button" id="addon-next">
+
+            <button
+              class="next-button"
+              id="addon-next"
+              type="button">
+
               Next step
+
             </button>
 
           </div>
@@ -287,28 +540,49 @@
         </div>
 
 
-        <!-- STEP 4 -->
+        <!-- =========================
+             STEP 4
+        ========================== -->
+
         <div class="form-step" id="step-4">
 
           <div class="form-header">
-            <h1>Finishing up</h1>
-            <p>Double-check everything looks OK before confirming.</p>
+
+            <h1>
+              Finishing up
+            </h1>
+
+            <p>
+              Double-check everything looks OK before confirming.
+            </p>
+
           </div>
 
 
           <div class="summary">
 
+
+            <!-- Selected Plan -->
+
             <div class="summary-plan">
 
               <div>
+
                 <h3 id="summary-plan-name">
                   Arcade (Monthly)
                 </h3>
 
-                <a href="#" id="change-plan">
+
+                <a
+                  href="#"
+                  id="change-plan">
+
                   Change
+
                 </a>
+
               </div>
+
 
               <strong id="summary-plan-price">
                 $9/mo
@@ -317,13 +591,21 @@
             </div>
 
 
-            <div class="summary-addons" id="summary-addons">
+            <!-- Selected Add-ons -->
+
+            <div
+              class="summary-addons"
+              id="summary-addons">
             </div>
 
 
+            <!-- Total -->
+
             <div class="total">
 
-              <span>Total (per month)</span>
+              <span>
+                Total (per month)
+              </span>
 
               <strong id="total-price">
                 $9/mo
@@ -334,14 +616,27 @@
           </div>
 
 
+          <!-- Navigation -->
+
           <div class="navigation">
 
-            <button class="back-button" id="summary-back">
+            <button
+              class="back-button"
+              id="summary-back"
+              type="button">
+
               Go Back
+
             </button>
 
-            <button class="confirm-button" id="confirm-button">
+
+            <button
+              class="confirm-button"
+              id="confirm-button"
+              type="button">
+
               Confirm
+
             </button>
 
           </div>
@@ -349,33 +644,59 @@
         </div>
 
 
-        <!-- THANK YOU -->
-        <div class="form-step thank-you" id="thank-you">
+        <!-- =========================
+             THANK YOU
+        ========================== -->
+
+        <div
+          class="form-step thank-you"
+          id="thank-you">
 
           <div class="thank-icon">
             ✓
           </div>
 
-          <h1>Thank You!</h1>
+
+          <h1>
+            Thank You!
+          </h1>
+
 
           <p>
+
             Thanks for confirming your subscription!
             We hope you have fun using our platform.
             If you ever need support, please feel free
             to email us at support@loremgaming.com.
+
           </p>
 
         </div>
+
 
       </section>
 
     </div>
 
 
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer>
-      Challenge by <a href="#">Crio.do</a>.
-      Coded by <a href="#">Ketan</a>.
+
+      Challenge by
+      <a href="#">
+        Crio.do
+      </a>.
+
+      Coded by
+      <a href="#">
+        Ketan
+      </a>.
+
     </footer>
+
 
   </main>
 
@@ -383,4 +704,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
